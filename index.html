@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortFolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <img src="C:\Users\dmaff\Desktop\landing-page\trasferimento.jpeg" alt="Logo" style="height: 50px;">
+            <ul>
+                <li><a href="#chi-siamo">Chi Siamo</a></li>
+                <li><a href="#servizi">Servizi</a></li>
+                <li><a href="#contatti">Contatti</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h2>Benvenuto nel mio PortFolio</h2>
+        <p>Scopri i nostri progetti straordinari ovviamente fatti per far perdere tempo</p>
+        <a href="#servizi" class="btn">Scopri di più</a>
+    </section>
+
+    <section id="chi-siamo">
+        <h2>Chi Sono</h2>
+        <p>
+            Sono un neodiplomato in Informatica e Telecomunicazioni, attualmente lavoro come programmatore fullstack da circa 6 mesi, utilizzando C# e il framework Blazor.
+            Pur considerandomi ancora alle prime armi, ho una forte predisposizione all'apprendimento rapido e sono motivato a crescere continuamente in ogni ambito dello sviluppo software.
+        </p>
+
+        <p>
+            In base ai requisiti richiesti, queste sono le competenze che possiedo:
+        </p>
+
+        <ul>
+            <li>6+ mesi di esperienza con HTML/CSS</li>
+            <li>6+ mesi di esperienza con JavaScript</li>
+            <li>Esperienza nello sviluppo di siti web responsive</li>
+            <li>Familiarità con piattaforme di comunicazione come Telegram, Discord e TeamSpeak</li>
+        </ul>
+
+        <p><strong>Bonus:</strong></p>
+        <ul>
+            <li>Esperienza con MariaDB/MySQL</li>
+            <li>Esperienza nell'integrazione e utilizzo di API</li>
+        </ul>
+
+        <p><strong>Competenze Java:</strong></p>
+        <ul>
+            <li>6+ mesi di esperienza con Java</li>
+            <li>Familiarità con Git e GitHub</li>
+            <li>Familiarità con MySQL</li>
+        </ul>
+
+        <p>
+            Ho 19 anni (quasi 20) e il mio percorso nel mondo digitale è iniziato ai tempi di FearGames, quando, a circa 14 anni, ho cominciato a far parte dello staff di diversi server Minecraft.
+            Dopo un periodo di pausa, un video di "Pat" mi ha fatto riscoprire questa passione, e mi sono detto: "Why not?"
+            Da lì è ripartito il mio viaggio nel mondo dello sviluppo e della tecnologia.
+        </p>
+    </section>
+
+    <section id="servizi">
+        <h2>I Nostri Servizi</h2>
+
+        <!-- Servizio 1 - Meteo -->
+        <div class="servizio" id="meteo">
+            <h3>Meteo in tempo reale</h3>
+            <p id="meteo-info">Caricamento...</p>
+            <button onclick="getWeather()">Mostra il meteo</button>
+        </div>
+
+        <!-- Servizio 2 - Citazione casuale -->
+        <div class="servizio" id="citazione">
+            <h3>In base al tuo nome, stima la tua età</h3>
+            <p id="citazione-info">Caricamento...</p>
+            <button onclick="getAge()">Mostra età</button>
+        </div>
+
+        <!-- Servizio 3 - Errore HTTP casuale -->
+        <div class="servizio" id="film">
+            <h3>API Errore HTTP casuale</h3>
+            <button onclick="getRandomError()">Mostra errore</button>
+        </div>
+    </section>
+
+    <section id="contatti">
+        <h2>Sono Shelby, se apri questo immagino che sai dove trovarmi</h2>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Shelby. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
