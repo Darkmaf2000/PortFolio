@@ -39,9 +39,6 @@ Sono un neodiplomato in informatica e telecomunicazioni con 6 mesi di esperienza
 ### [PortFolio](https://github.com/Darkmaf2000/PortFolio)
 Un portfolio per mostrare i miei progetti e le mie competenze.
 
-### [Altro Progetto](#)
-Breve descrizione del progetto (aggiungi dettagli rilevanti qui).
-
 ---
 
 ## 🏅 Requisiti soddisfatti
