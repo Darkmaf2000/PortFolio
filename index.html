@@ -1,99 +1,280 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="light">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PortFolio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio di Shelby</title>
+  <!-- Fonts & Animate On Scroll -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <style>
+    :root {
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Open Sans', sans-serif;
+      --color-bg-light: #f5f5f5;
+      --color-bg-dark: #1a1a1a;
+      --color-primary: #ff5722;
+      --color-secondary: #333;
+      --color-text-light: #fff;
+      --color-text-dark: #333;
+    }
+    [data-theme="light"] { --bg: var(--color-bg-light); --text: var(--color-text-dark); }
+    [data-theme="dark"]  { --bg: var(--color-bg-dark);  --text: var(--color-text-light); }
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      transition: background .3s;
+    }
+    [data-theme="dark"] .navbar { background: rgba(26,26,26,0.8); }
+    .logo img { height: 40px; }
+    .nav-links { list-style: none; display: flex; gap: 1.5rem; }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--text);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0%; height: 2px;
+      background: var(--color-primary);
+      transition: width .3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    #theme-toggle {
+      background: none; border: none;
+      font-size: 1.5rem; cursor: pointer;
+      color: var(--text);
+    }
+
+    /* Hero */
+    #hero {
+      height: 100vh; display: flex;
+      flex-direction: column; justify-content: center;
+      align-items: center; text-align: center;
+      padding: 0 1rem;
+    }
+    #hero h1 {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeInDown 1s ease forwards;
+    }
+    @keyframes fadeInDown { to { opacity:1; transform: translateY(0); } }
+    #hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.5s forwards;
+    }
+    @keyframes fadeIn { to { opacity:1; } }
+    .btn {
+      padding: 0.75rem 1.5rem;
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform .3s;
+    }
+    .btn:hover { transform: scale(1.05); }
+    section { padding: 4rem 2rem; max-width: 1000px; margin: auto; }
+    section h2 {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    /* Competency List */
+    .competenze-list {
+      list-style: disc inside;
+      max-width: 600px;
+      margin: 1rem auto;
+    }
+    .competenze-list li {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    /* Services Grid & Cards */
+    .servizi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .servizio {
+      background: var(--bg);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .servizio.in-view { opacity:1; transform: translateY(0); }
+    .servizio h3 { margin-top:0; font-size:1.5rem; }
+    .servizio button {
+      margin-top:1rem;
+      background: var(--color-secondary);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .servizio button:hover { background: var(--color-primary); }
+    /* Contact Links */
+    .social-links { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; }
+    .social-links a { text-decoration: none; font-weight: 600; color: var(--color-primary); }
+    footer { text-align: center; padding: 2rem; background: rgba(0,0,0,0.05); }
+    [data-theme="dark"] footer { background: rgba(255,255,255,0.05); }
+  </style>
 </head>
 <body>
+  <nav class="navbar" data-aos="fade-down">
+    <a href="#" class="logo"><img src="trasferimento.jpeg" alt="Logo"></a>
+    <ul class="nav-links">
+      <li><a href="#chi-siamo">Chi Sono</a></li>
+      <li><a href="#competenze">Competenze</a></li>
+      <li><a href="#servizi">Servizi</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+    <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  </nav>
 
-    <header>
-        <nav>
-            <img src="C:\Users\dmaff\Desktop\landing-page\trasferimento.jpeg" alt="Logo" style="height: 50px;">
-            <ul>
-                <li><a href="#chi-siamo">Chi Siamo</a></li>
-                <li><a href="#servizi">Servizi</a></li>
-                <li><a href="#contatti">Contatti</a></li>
-            </ul>
-        </nav>
-    </header>
+  <section id="hero">
+    <h1>Benvenuto nel mio Portfolio</h1>
+    <p>Scopri i miei progetti e le mie competenze in ambito web e software.</p>
+    <a href="#competenze" class="btn">Le mie skills</a>
+  </section>
 
-    <section id="hero">
-        <h2>Benvenuto nel mio PortFolio</h2>
-        <p>Scopri i nostri progetti straordinari ovviamente fatti per far perdere tempo</p>
-        <a href="#servizi" class="btn">Scopri di più</a>
-    </section>
+  <section id="chi-siamo">
+    <h2>Chi Sono</h2>
+    <p>
+      Neodiplomato in Informatica e Telecomunicazioni, lavoro come programmatore fullstack da oltre 6 mesi. Ho esperienza nello sviluppo di applicazioni web con C#, Blazor e JavaScript, e nello sviluppo backend con Java.
+    </p>
+  </section>
 
-    <section id="chi-siamo">
-        <h2>Chi Sono</h2>
-        <p>
-            Sono un neodiplomato in Informatica e Telecomunicazioni, attualmente lavoro come programmatore fullstack da circa 6 mesi, utilizzando C# e il framework Blazor.
-            Pur considerandomi ancora alle prime armi, ho una forte predisposizione all'apprendimento rapido e sono motivato a crescere continuamente in ogni ambito dello sviluppo software.
-        </p>
+  <section id="competenze">
+    <h2>Competenze</h2>
+    <ul class="competenze-list">
+      <li>HTML5, CSS3, responsive design (6+ mesi)</li>
+      <li>JavaScript ES6+ (6+ mesi)</li>
+      <li>Java (6+ mesi)</li>
+      <li>Framework Blazor e sviluppo fullstack con C#</li>
+      <li>Database: MariaDB/MySQL, MySQL (fondamentali, 6+ mesi)</li>
+      <li>Utilizzo e integrazione di API RESTful</li>
+      <li>Versionamento con Git e GitHub</li>
+      <li>Piattaforme di comunicazione: Telegram, Discord, Teamspeak</li>
+    </ul>
+  </section>
 
-        <p>
-            In base ai requisiti richiesti, queste sono le competenze che possiedo:
-        </p>
+  <section id="servizi">
+    <h2>I Nostri Servizi</h2>
+    <div class="servizi-grid">
+      <div class="servizio" id="meteo">
+        <h3>Meteo in tempo reale</h3>
+        <p id="meteo-info"></p>
+        <button onclick="getWeather()">Mostra il meteo</button>
+      </div>
+      <div class="servizio" id="citazione">
+        <h3>Stima l'età dal nome</h3>
+        <p id="citazione-info"></p>
+        <button onclick="getAge()">Mostra età</button>
+      </div>
+      <div class="servizio" id="film">
+        <h3>Errore HTTP casuale</h3>
+        <button onclick="getRandomError()">Mostra errore</button>
+      </div>
+    </div>
+  </section>
 
-        <ul>
-            <li>6+ mesi di esperienza con HTML/CSS</li>
-            <li>6+ mesi di esperienza con JavaScript</li>
-            <li>Esperienza nello sviluppo di siti web responsive</li>
-            <li>Familiarità con piattaforme di comunicazione come Telegram, Discord e TeamSpeak</li>
-        </ul>
+  <section id="contatti">
+    <h2>Contatti</h2>
+    <p>Seguimi sulle piattaforme:</p>
+    <div class="social-links">
+      <a href="https://t.me/DiegoShelby2000" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://discord.com/users/925052445233676319" target="_blank" rel="noopener">Discord</a>
+      <a href="https://github.com/darkmaf2000" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
 
-        <p><strong>Bonus:</strong></p>
-        <ul>
-            <li>Esperienza con MariaDB/MySQL</li>
-            <li>Esperienza nell'integrazione e utilizzo di API</li>
-        </ul>
+  <footer>
+    <p>&copy; 2025 Shelby. Tutti i diritti riservati.</p>
+  </footer>
 
-        <p><strong>Competenze Java:</strong></p>
-        <ul>
-            <li>6+ mesi di esperienza con Java</li>
-            <li>Familiarità con Git e GitHub</li>
-            <li>Familiarità con MySQL</li>
-        </ul>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('click', () => {
+      const theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = theme;
+      toggle.textContent = theme === 'light' ? '🌙' : '☀️';
+    });
 
-        <p>
-            Ho 19 anni (quasi 20) e il mio percorso nel mondo digitale è iniziato ai tempi di FearGames, quando, a circa 14 anni, ho cominciato a far parte dello staff di diversi server Minecraft.
-            Dopo un periodo di pausa, un video di "Pat" mi ha fatto riscoprire questa passione, e mi sono detto: "Why not?"
-            Da lì è ripartito il mio viaggio nel mondo dello sviluppo e della tecnologia.
-        </p>
-    </section>
+    const servizi = document.querySelectorAll('.servizio');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+    }, { threshold: 0.3 });
+    servizi.forEach(el => io.observe(el));
 
-    <section id="servizi">
-        <h2>I Nostri Servizi</h2>
+    async function getWeather() {
+      const city = prompt('Inserisci una città per il meteo:');
+      const key = '99c0dcf249a171d974010aecd88103c4';
+      try {
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=it&units=metric&appid=${key}`);
+        const data = await res.json();
+        const { main, weather } = data;
+        document.getElementById('meteo-info').innerHTML = `
+          <img src="https://openweathermap.org/img/wn/${weather[0].icon}.png" alt="${weather[0].description}">
+          ${weather[0].description}, ${main.temp}\u00B0C
+        `;
+      } catch (err) {
+        document.getElementById('meteo-info').innerText = 'Errore nel recuperare i dati meteo.';
+      }
+    }
 
-        <!-- Servizio 1 - Meteo -->
-        <div class="servizio" id="meteo">
-            <h3>Meteo in tempo reale</h3>
-            <p id="meteo-info">Caricamento...</p>
-            <button onclick="getWeather()">Mostra il meteo</button>
-        </div>
+    async function getAge() {
+      const name = prompt('Inserisci il tuo nome:');
+      try {
+        if (name === null) throw new Error('Nome non fornito');
+        const res = await fetch(`https://api.agify.io?name=${encodeURIComponent(name)}`);
+        if (!res.ok) throw new Error('Risposta non valida dal server');
+        const data = await res.json();
+        document.getElementById('citazione-info').innerText = `L'età media di ${name} è: ${data.age} anni.`;
+      } catch (err) {
+        document.getElementById('citazione-info').innerText = 'Errore nel recuperare l\'età.';
+      }
+    }
 
-        <!-- Servizio 2 - Citazione casuale -->
-        <div class="servizio" id="citazione">
-            <h3>In base al tuo nome, stima la tua età</h3>
-            <p id="citazione-info">Caricamento...</p>
-            <button onclick="getAge()">Mostra età</button>
-        </div>
-
-        <!-- Servizio 3 - Errore HTTP casuale -->
-        <div class="servizio" id="film">
-            <h3>API Errore HTTP casuale</h3>
-            <button onclick="getRandomError()">Mostra errore</button>
-        </div>
-    </section>
-
-    <section id="contatti">
-        <h2>Sono Shelby, se apri questo immagino che sai dove trovarmi</h2>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Shelby. Tutti i diritti riservati.</p>
-    </footer>
-
-    <script src="script.js"></script>
+    function getRandomError() {
+      const errorCodes = [400, 401, 403, 404, 500, 502, 503, 504, 408, 413, 429];
+      const code = errorCodes[Math.floor(Math.random() * errorCodes.length)];
+      window.open(
+        `https://status.pizza/${code}`,
+        '_blank',
+        'noopener,noreferrer'
+      );
+    }
+  </script>
 </body>
 </html>
